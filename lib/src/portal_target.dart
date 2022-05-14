@@ -4,7 +4,6 @@ import 'package:collection/collection.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
-
 import 'package:flutter_portal/src/anchor.dart';
 import 'package:flutter_portal/src/enhanced_composited_transform/flutter_src/rendering_layer.dart';
 import 'package:flutter_portal/src/enhanced_composited_transform/flutter_src/widgets_basic.dart';
@@ -410,7 +409,6 @@ class _PortalTargetState extends State<PortalTarget> {
 
 class _PortalTargetVisibilityBuilder extends StatefulWidget {
   const _PortalTargetVisibilityBuilder({
-    super.key,
     required this.visible,
     required this.closeDuration,
     required this.builder,
@@ -474,7 +472,6 @@ class _PortalTargetVisibilityBuilderState
 
 class _PortalTargetTheaterFollowerParent extends InheritedWidget {
   const _PortalTargetTheaterFollowerParent({
-    super.key,
     required this.debugSelfWidget,
     required this.usedScope,
     required super.child,

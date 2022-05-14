@@ -89,10 +89,7 @@ Future<void> main() async {
         child: Portal(
           child: PortalTarget(
             closeDuration: Duration(seconds: 5),
-            anchor: Aligned(
-              target: Alignment.center,
-              follower: Alignment.center,
-            ),
+            anchor: Aligned.center,
             portalFollower: Text('portal'),
             child: Text('child'),
           ),

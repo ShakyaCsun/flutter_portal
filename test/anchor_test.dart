@@ -264,9 +264,6 @@ class _TestAligned extends Aligned {
   const _TestAligned({
     required super.follower,
     required super.target,
-    super.offset,
-    super.widthFactor,
-    super.heightFactor,
     required this.onGetSourceOffset,
   });
 

@@ -58,7 +58,6 @@ class _RoundedCornersExampleState extends State<RoundedCornersExample> {
 
 class _Popup extends StatelessWidget {
   const _Popup({
-    super.key,
     required this.children,
   });
 
@@ -88,7 +87,6 @@ class _Popup extends StatelessWidget {
 
 class _ModalEntry extends StatelessWidget {
   const _ModalEntry({
-    super.key,
     required this.onClose,
     required this.visible,
     required this.popup,

@@ -79,10 +79,7 @@ class Discovery extends StatelessWidget {
       child: PortalTarget(
         visible: visible,
         closeDuration: kThemeAnimationDuration,
-        anchor: const Aligned(
-          target: Alignment.center,
-          follower: Alignment.center,
-        ),
+        anchor: Aligned.center,
         portalFollower: Stack(
           children: [
             CustomPaint(

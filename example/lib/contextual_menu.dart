@@ -90,7 +90,6 @@ class Menu extends StatelessWidget {
 
 class _ModalEntry extends StatelessWidget {
   const _ModalEntry({
-    super.key,
     required this.onClose,
     required this.menu,
     required this.visible,
