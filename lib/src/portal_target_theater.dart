@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
-
 import 'package:flutter_portal/src/anchor.dart';
 import 'package:flutter_portal/src/portal_link.dart';
 
@@ -31,12 +30,14 @@ class PortalTargetTheater extends SingleChildRenderObjectWidget {
   @override
   void updateRenderObject(
     BuildContext context,
-    _RenderPortalTargetTheater renderObject,
+    RenderObject renderObject,
   ) {
-    renderObject
-      ..portalLink = portalLink
-      ..anchor = anchor
-      ..targetSize = targetSize;
+    if (renderObject is _RenderPortalTargetTheater) {
+      renderObject
+        ..portalLink = portalLink
+        ..anchor = anchor
+        ..targetSize = targetSize;
+    }
   }
 
   @override

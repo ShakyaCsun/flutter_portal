@@ -29,7 +29,7 @@ class ClapButton extends StatefulWidget {
   const ClapButton({super.key});
 
   @override
-  _ClapButtonState createState() => _ClapButtonState();
+  State<ClapButton> createState() => _ClapButtonState();
 }
 
 class _ClapButtonState extends State<ClapButton> {

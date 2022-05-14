@@ -78,7 +78,7 @@ class DatePickerUsageExample extends StatefulWidget {
   const DatePickerUsageExample({super.key});
 
   @override
-  _DatePickerUsageExampleState createState() => _DatePickerUsageExampleState();
+  State<DatePickerUsageExample> createState() => _DatePickerUsageExampleState();
 }
 
 class _DatePickerUsageExampleState extends State<DatePickerUsageExample> {

@@ -28,7 +28,7 @@ class RoundedCornersExample extends StatefulWidget {
   const RoundedCornersExample({super.key});
 
   @override
-  _RoundedCornersExampleState createState() => _RoundedCornersExampleState();
+  State<RoundedCornersExample> createState() => _RoundedCornersExampleState();
 }
 
 class _RoundedCornersExampleState extends State<RoundedCornersExample> {

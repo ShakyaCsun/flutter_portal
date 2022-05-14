@@ -1,7 +1,6 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
-
 import 'package:flutter_portal/src/portal_link.dart';
 import 'package:flutter_portal/src/portal_target.dart';
 import 'package:flutter_portal/src/portal_theater.dart';
@@ -53,7 +52,7 @@ class Portal extends StatefulWidget {
   final Widget child;
 
   @override
-  _PortalState createState() => _PortalState();
+  State<Portal> createState() => _PortalState();
 
   @override
   void debugFillProperties(DiagnosticPropertiesBuilder properties) {

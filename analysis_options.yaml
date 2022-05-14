@@ -12,6 +12,5 @@ linter:
     prefer_asserts_with_message: false
     flutter_style_todos: false
     # Enable and fix these one by one
-    library_private_types_in_public_api: false
     cascade_invocations: false
     lines_longer_than_80_chars: false

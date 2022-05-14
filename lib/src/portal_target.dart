@@ -218,7 +218,7 @@ class PortalTarget extends StatefulWidget {
   final Widget child;
 
   @override
-  _PortalTargetState createState() => _PortalTargetState();
+  State<PortalTarget> createState() => _PortalTargetState();
 
   @override
   void debugFillProperties(DiagnosticPropertiesBuilder properties) {

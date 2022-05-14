@@ -31,7 +31,7 @@ class ContextualMenuExample extends StatefulWidget {
   const ContextualMenuExample({super.key});
 
   @override
-  _ContextualMenuExampleState createState() => _ContextualMenuExampleState();
+  State<ContextualMenuExample> createState() => _ContextualMenuExampleState();
 }
 
 class _ContextualMenuExampleState extends State<ContextualMenuExample> {
