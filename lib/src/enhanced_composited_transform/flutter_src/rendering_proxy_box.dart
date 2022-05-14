@@ -4,7 +4,6 @@
 // ignore_for_file: unnecessary_null_comparison, curly_braces_in_flow_control_structures, omit_local_variable_types, comment_references, always_put_control_body_on_new_line
 
 import 'package:flutter/rendering.dart';
-
 import 'package:flutter_portal/src/enhanced_composited_transform/anchor.dart';
 import 'package:flutter_portal/src/enhanced_composited_transform/flutter_src/rendering_layer.dart';
 
@@ -119,7 +118,7 @@ class EnhancedRenderLeaderLayer extends RenderProxyBox {
 }
 
 /// @nodoc
-class EnhancedRenderFollowerLayer extends RenderProxyBox {
+class EnhancedRenderFollowerLayer extends RenderProxyBoxWithHitTestBehavior {
   /// @nodoc
   EnhancedRenderFollowerLayer({
     required EnhancedLayerLink link,
@@ -128,13 +127,13 @@ class EnhancedRenderFollowerLayer extends RenderProxyBox {
     required Size targetSize,
     required EnhancedCompositedTransformAnchor anchor,
     required String? debugName,
-    RenderBox? child,
+    super.child,
+    super.behavior,
   })  : _anchor = anchor,
         _link = link,
         _showWhenUnlinked = showWhenUnlinked,
         _targetSize = targetSize,
-        _debugName = debugName,
-        super(child);
+        _debugName = debugName;
 
   /// @nodoc
   bool get showWhenUnlinked => _showWhenUnlinked;
@@ -212,11 +211,18 @@ class EnhancedRenderFollowerLayer extends RenderProxyBox {
   bool hitTest(BoxHitTestResult result, {required Offset position}) {
     // Disables the hit testing if this render object is hidden.
     if (link.leader == null && !showWhenUnlinked) return false;
+    if (behavior == HitTestBehavior.translucent) {
+      return super.hitTest(result, position: position);
+    }
     // RenderFollowerLayer objects don't check if they are
     // themselves hit, because it's confusing to think about
     // how the untransformed size and the child's transformed
     // position interact.
-    return hitTestChildren(result, position: position);
+    final bool hitTarget = hitTestChildren(result, position: position);
+    if (hitTarget || behavior == HitTestBehavior.translucent)
+      result.add(BoxHitTestEntry(this, position));
+
+    return hitTarget;
   }
 
   @override

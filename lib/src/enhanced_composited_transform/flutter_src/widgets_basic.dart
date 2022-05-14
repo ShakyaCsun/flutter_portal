@@ -61,6 +61,7 @@ class EnhancedCompositedTransformFollower
     // NOTE MODIFIED some arguments
     required this.targetSize,
     required this.anchor,
+    this.behavior = HitTestBehavior.deferToChild,
     this.debugName,
     super.child,
   });
@@ -79,6 +80,9 @@ class EnhancedCompositedTransformFollower
   // NOTE MODIFIED add
   final String? debugName;
 
+  // NOTE MODIFIED add
+  final HitTestBehavior behavior;
+
   @override
   EnhancedRenderFollowerLayer createRenderObject(BuildContext context) {
     return EnhancedRenderFollowerLayer(
@@ -87,6 +91,7 @@ class EnhancedCompositedTransformFollower
       showWhenUnlinked: showWhenUnlinked,
       targetSize: targetSize,
       debugName: debugName,
+      behavior: behavior,
     );
   }
 
@@ -100,6 +105,7 @@ class EnhancedCompositedTransformFollower
       ..showWhenUnlinked = showWhenUnlinked
       ..targetSize = targetSize
       ..anchor = anchor
-      ..debugName = debugName;
+      ..debugName = debugName
+      ..behavior = behavior;
   }
 }

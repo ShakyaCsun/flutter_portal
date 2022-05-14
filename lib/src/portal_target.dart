@@ -205,6 +205,7 @@ class PortalTarget extends StatefulWidget {
     this.portalFollower,
     this.portalCandidateLabels = const [PortalLabel.main],
     this.debugName,
+    this.behavior = HitTestBehavior.deferToChild,
     required this.child,
   }) : assert(visible == false || portalFollower != null);
 
@@ -215,6 +216,7 @@ class PortalTarget extends StatefulWidget {
   final PortalFollower? portalFollower;
   final List<PortalLabel<dynamic>> portalCandidateLabels;
   final String? debugName;
+  final HitTestBehavior behavior;
   final Widget child;
 
   @override
@@ -323,6 +325,7 @@ class _PortalTargetState extends State<PortalTarget> {
                     anchor: widget.anchor,
                     targetSize: targetSize,
                     debugName: widget.debugName,
+                    behavior: widget.behavior,
                     child: widget.portalFollower == null
                         ? null
                         : _PortalTargetTheaterFollowerParent(
