@@ -15,4 +15,3 @@ linter:
     library_private_types_in_public_api: false
     cascade_invocations: false
     lines_longer_than_80_chars: false
-    use_colored_box: false

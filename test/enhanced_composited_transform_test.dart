@@ -31,7 +31,7 @@ void main() {
                     link: link,
                     theaterGetter: () => containerKey.currentContext
                         ?.findRenderObject() as RenderBox?,
-                    child: Container(
+                    child: DecoratedBox(
                       decoration: BoxDecoration(
                         border: Border.all(color: Colors.red, width: 2),
                       ),
@@ -44,7 +44,7 @@ void main() {
                   // top: 40,
                   // width: targetSize.width,
                   // height: targetSize.height,
-                  child: Container(
+                  child: ColoredBox(
                     color: Colors.blue.withAlpha(150),
                     child: EnhancedCompositedTransformFollower(
                       link: link,

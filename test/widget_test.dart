@@ -634,7 +634,7 @@ Future<void> main() async {
             builder: (c, value, _) {
               return PortalTarget(
                 visible: value,
-                portalFollower: Container(
+                portalFollower: ColoredBox(
                   color: Colors.red.withAlpha(122),
                 ),
                 child: Center(
@@ -802,8 +802,9 @@ Future<void> main() async {
                 height: 20,
                 color: Colors.green,
               ),
-              child: Container(
+              child: const ColoredBox(
                 color: Colors.red,
+                child: SizedBox.expand(),
               ),
             ),
           ),
@@ -857,8 +858,9 @@ Future<void> main() async {
                   color: Colors.green,
                 ),
               ),
-              child: Container(
+              child: const ColoredBox(
                 color: Colors.red,
+                child: SizedBox.expand(),
               ),
             ),
           ),
@@ -1625,7 +1627,7 @@ Future<void> main() async {
     await tester.pumpWidget(
       Boilerplate(
         child: Portal(
-          child: Container(
+          child: ColoredBox(
             color: Colors.white,
             child: Stack(
               children: [
@@ -1653,8 +1655,9 @@ Future<void> main() async {
                         ),
                       ),
                     ),
-                    child: Container(
+                    child: const ColoredBox(
                       color: Colors.orange,
+                      child: SizedBox.expand(),
                     ),
                   ),
                 ),
@@ -1680,7 +1683,7 @@ Future<void> main() async {
     await tester.pumpWidget(
       Boilerplate(
         child: Portal(
-          child: Container(
+          child: ColoredBox(
             color: Colors.blue.shade300,
             child: Stack(
               children: [
@@ -1707,8 +1710,9 @@ Future<void> main() async {
                         ),
                       ),
                     ),
-                    child: Container(
+                    child: const ColoredBox(
                       color: Colors.orange,
+                      child: SizedBox.expand(),
                     ),
                   ),
                 ),
@@ -1745,7 +1749,10 @@ Future<void> main() async {
                 color: Colors.blue,
               ),
             ),
-            child: Container(color: Colors.yellow),
+            child: const ColoredBox(
+              color: Colors.yellow,
+              child: SizedBox.expand(),
+            ),
           ),
         ),
       ),
@@ -1768,7 +1775,10 @@ Future<void> main() async {
 
     final containerKey = GlobalKey();
 
-    Widget child = Container(color: Colors.purple.withAlpha(50));
+    Widget child = ColoredBox(
+      color: Colors.purple.withAlpha(50),
+      child: const SizedBox.expand(),
+    );
 
     child = PortalTarget(
       // should put to [firstPortal], thus be higher than [secondPortal] in z-index
@@ -1819,7 +1829,7 @@ Future<void> main() async {
           key: containerKey,
           child: Portal(
             labels: const [firstPortal],
-            child: Container(
+            child: ColoredBox(
               color: Colors.blue.withAlpha(50),
               child: Padding(
                 padding: const EdgeInsets.all(10),
@@ -1876,7 +1886,10 @@ Future<void> main() async {
             padding: const EdgeInsets.all(10),
             child: Portal(
               labels: const [PortalLabel.main],
-              child: Container(color: Colors.purple.withAlpha(50)),
+              child: ColoredBox(
+                color: Colors.purple.withAlpha(50),
+                child: const SizedBox.expand(),
+              ),
             ),
           ),
         ),
@@ -1996,13 +2009,15 @@ Future<void> main() async {
                         width: 10,
                         height: 10,
                       ),
-                      child: Container(
+                      child: const ColoredBox(
                         color: Colors.red,
+                        child: SizedBox.expand(),
                       ),
                     ),
                   ),
-                  child: Container(
+                  child: const ColoredBox(
                     color: Colors.green,
+                    child: SizedBox.expand(),
                   ),
                 ),
               ),
@@ -2088,13 +2103,15 @@ Future<void> main() async {
                         width: 10,
                         height: 10,
                       ),
-                      child: Container(
+                      child: const ColoredBox(
                         color: Colors.red,
+                        child: SizedBox.expand(),
                       ),
                     ),
                   ),
-                  child: Container(
+                  child: const ColoredBox(
                     color: Colors.green,
+                    child: SizedBox.expand(),
                   ),
                 ),
               ),
@@ -2176,15 +2193,17 @@ Future<void> main() async {
                         width: 10,
                         height: 10,
                       ),
-                      child: Container(
+                      child: const ColoredBox(
                         color: Colors.red,
+                        child: SizedBox.expand(),
                       ),
                     ),
                   ),
                 ),
               ),
-              child: Container(
+              child: const ColoredBox(
                 color: Colors.green,
+                child: SizedBox.expand(),
               ),
             ),
           ),

@@ -187,13 +187,13 @@ void main() {
 
     final mainKey = GlobalKey();
     await tester.pumpWidget(
-      Container(
+      ColoredBox(
         color: Colors.blue.shade50,
         child: Directionality(
           textDirection: TextDirection.ltr,
           child: Center(
             key: mainKey,
-            child: Container(
+            child: ColoredBox(
               color: Colors.blue.shade200,
               child: RepaintBoundary(
                 child: Container(
