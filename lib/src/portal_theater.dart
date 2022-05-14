@@ -1,16 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 
-import 'portal_link.dart';
+import 'package:flutter_portal/src/portal_link.dart';
 
 class PortalTheater extends SingleChildRenderObjectWidget {
   const PortalTheater({
-    Key? key,
+    super.key,
     required this.debugName,
     required PortalLink portalLink,
-    required Widget child,
-  })  : _portalLink = portalLink,
-        super(key: key, child: child);
+    required Widget super.child,
+  }) : _portalLink = portalLink;
 
   // ignore: diagnostic_describe_all_properties
   final String? debugName;

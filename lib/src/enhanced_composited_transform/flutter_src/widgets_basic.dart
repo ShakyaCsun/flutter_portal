@@ -4,22 +4,21 @@
 // ignore_for_file: unnecessary_null_comparison, diagnostic_describe_all_properties
 
 import 'package:flutter/material.dart';
-import '../anchor.dart';
-import 'rendering_layer.dart';
-import 'rendering_proxy_box.dart';
+import 'package:flutter_portal/src/enhanced_composited_transform/anchor.dart';
+import 'package:flutter_portal/src/enhanced_composited_transform/flutter_src/rendering_layer.dart';
+import 'package:flutter_portal/src/enhanced_composited_transform/flutter_src/rendering_proxy_box.dart';
 
 /// @nodoc
 class EnhancedCompositedTransformTarget extends SingleChildRenderObjectWidget {
   /// @nodoc
   const EnhancedCompositedTransformTarget({
-    Key? key,
+    super.key,
     required this.link,
     // NOTE MODIFIED some arguments
     required this.theaterGetter,
     this.debugName,
-    Widget? child,
-  })  : assert(link != null),
-        super(key: key, child: child);
+    super.child,
+  }) : assert(link != null);
 
   /// @nodoc
   final EnhancedLayerLink link;
@@ -41,7 +40,9 @@ class EnhancedCompositedTransformTarget extends SingleChildRenderObjectWidget {
 
   @override
   void updateRenderObject(
-      BuildContext context, EnhancedRenderLeaderLayer renderObject) {
+    BuildContext context,
+    EnhancedRenderLeaderLayer renderObject,
+  ) {
     renderObject
       ..link = link
       ..theaterGetter = theaterGetter
@@ -54,15 +55,15 @@ class EnhancedCompositedTransformFollower
     extends SingleChildRenderObjectWidget {
   /// @nodoc
   const EnhancedCompositedTransformFollower({
-    Key? key,
+    super.key,
     required this.link,
     this.showWhenUnlinked = true,
     // NOTE MODIFIED some arguments
     required this.targetSize,
     required this.anchor,
     this.debugName,
-    Widget? child,
-  }) : super(key: key, child: child);
+    super.child,
+  });
 
   /// @nodoc
   final EnhancedCompositedTransformAnchor anchor;
@@ -91,7 +92,9 @@ class EnhancedCompositedTransformFollower
 
   @override
   void updateRenderObject(
-      BuildContext context, EnhancedRenderFollowerLayer renderObject) {
+    BuildContext context,
+    EnhancedRenderFollowerLayer renderObject,
+  ) {
     renderObject
       ..link = link
       ..showWhenUnlinked = showWhenUnlinked

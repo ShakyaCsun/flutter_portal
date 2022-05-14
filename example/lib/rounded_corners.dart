@@ -4,7 +4,7 @@ import 'package:flutter_portal/flutter_portal.dart';
 void main() => runApp(const MyApp());
 
 class MyApp extends StatelessWidget {
-  const MyApp({Key? key}) : super(key: key);
+  const MyApp({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -25,7 +25,7 @@ class MyApp extends StatelessWidget {
 }
 
 class RoundedCornersExample extends StatefulWidget {
-  const RoundedCornersExample({Key? key}) : super(key: key);
+  const RoundedCornersExample({super.key});
 
   @override
   _RoundedCornersExampleState createState() => _RoundedCornersExampleState();
@@ -58,9 +58,9 @@ class _RoundedCornersExampleState extends State<RoundedCornersExample> {
 
 class _Popup extends StatelessWidget {
   const _Popup({
-    Key? key,
+    super.key,
     required this.children,
-  }) : super(key: key);
+  });
 
   final List<Widget> children;
 
@@ -88,12 +88,12 @@ class _Popup extends StatelessWidget {
 
 class _ModalEntry extends StatelessWidget {
   const _ModalEntry({
-    Key? key,
+    super.key,
     required this.onClose,
     required this.visible,
     required this.popup,
     required this.child,
-  }) : super(key: key);
+  });
 
   final VoidCallback onClose;
   final bool visible;

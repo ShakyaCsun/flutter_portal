@@ -1,19 +1,18 @@
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 
-import 'anchor.dart';
-import 'portal_link.dart';
+import 'package:flutter_portal/src/anchor.dart';
+import 'package:flutter_portal/src/portal_link.dart';
 
 class PortalTargetTheater extends SingleChildRenderObjectWidget {
   const PortalTargetTheater({
-    Key? key,
+    super.key,
     required this.portalFollower,
     required this.portalLink,
     required this.anchor,
     required this.targetSize,
-    required Widget child,
-  }) : super(key: key, child: child);
+    required Widget super.child,
+  });
 
   final Widget? portalFollower;
   final Anchor anchor;
@@ -207,7 +206,7 @@ class _RenderPortalTargetTheater extends RenderProxyBox {
 }
 
 class _PortalTargetTheaterElement extends SingleChildRenderObjectElement {
-  _PortalTargetTheaterElement(PortalTargetTheater widget) : super(widget);
+  _PortalTargetTheaterElement(PortalTargetTheater super.widget);
 
   @override
   PortalTargetTheater get widget => super.widget as PortalTargetTheater;

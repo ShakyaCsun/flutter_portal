@@ -7,12 +7,12 @@ void main() => runApp(const MyApp());
 
 class DeclarativeDatePicker extends StatelessWidget {
   const DeclarativeDatePicker({
-    Key? key,
+    super.key,
     required this.visible,
     required this.onDismissed,
     required this.onClose,
     required this.child,
-  }) : super(key: key);
+  });
 
   final bool visible;
   final Widget child;
@@ -51,7 +51,7 @@ class DeclarativeDatePicker extends StatelessWidget {
 }
 
 class MyApp extends StatelessWidget {
-  const MyApp({Key? key}) : super(key: key);
+  const MyApp({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -61,9 +61,11 @@ class MyApp extends StatelessWidget {
           appBar: AppBar(title: const Text('Example')),
           body: LayoutBuilder(
             builder: (_, __) {
-              return LayoutBuilder(builder: (_, __) {
-                return const DatePickerUsageExample();
-              });
+              return LayoutBuilder(
+                builder: (_, __) {
+                  return const DatePickerUsageExample();
+                },
+              );
             },
           ),
         ),
@@ -73,7 +75,7 @@ class MyApp extends StatelessWidget {
 }
 
 class DatePickerUsageExample extends StatefulWidget {
-  const DatePickerUsageExample({Key? key}) : super(key: key);
+  const DatePickerUsageExample({super.key});
 
   @override
   _DatePickerUsageExampleState createState() => _DatePickerUsageExampleState();

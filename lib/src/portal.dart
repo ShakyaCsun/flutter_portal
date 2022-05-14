@@ -2,9 +2,9 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 
-import 'portal_link.dart';
-import 'portal_target.dart';
-import 'portal_theater.dart';
+import 'package:flutter_portal/src/portal_link.dart';
+import 'package:flutter_portal/src/portal_target.dart';
+import 'package:flutter_portal/src/portal_theater.dart';
 
 /// The widget where a [PortalTarget] and its [PortalFollower] are rendered.
 ///
@@ -42,11 +42,11 @@ import 'portal_theater.dart';
 /// is pushed.
 class Portal extends StatefulWidget {
   const Portal({
-    Key? key,
+    super.key,
     this.debugName,
     this.labels = const [PortalLabel.main],
     required this.child,
-  }) : super(key: key);
+  });
 
   final String? debugName;
   final List<PortalLabel> labels;

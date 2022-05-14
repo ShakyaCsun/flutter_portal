@@ -6,7 +6,7 @@ import 'package:flutter_portal/flutter_portal.dart';
 void main() => runApp(const MyApp());
 
 class MyApp extends StatelessWidget {
-  const MyApp({Key? key}) : super(key: key);
+  const MyApp({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -28,7 +28,7 @@ class MyApp extends StatelessWidget {
 }
 
 class ContextualMenuExample extends StatefulWidget {
-  const ContextualMenuExample({Key? key}) : super(key: key);
+  const ContextualMenuExample({super.key});
 
   @override
   _ContextualMenuExampleState createState() => _ContextualMenuExampleState();
@@ -68,9 +68,9 @@ class _ContextualMenuExampleState extends State<ContextualMenuExample> {
 
 class Menu extends StatelessWidget {
   const Menu({
-    Key? key,
+    super.key,
     required this.children,
-  }) : super(key: key);
+  });
 
   final List<Widget> children;
 
@@ -90,14 +90,14 @@ class Menu extends StatelessWidget {
 
 class _ModalEntry extends StatelessWidget {
   const _ModalEntry({
-    Key? key,
+    super.key,
     required this.onClose,
     required this.menu,
     required this.visible,
     required this.menuAnchor,
     required this.childAnchor,
     required this.child,
-  }) : super(key: key);
+  });
 
   final VoidCallback onClose;
   final Widget menu;

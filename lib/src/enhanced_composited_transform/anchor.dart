@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import '../anchor.dart';
+import 'package:flutter_portal/src/anchor.dart';
 
 abstract class EnhancedCompositedTransformAnchor {
   const EnhancedCompositedTransformAnchor();
@@ -108,7 +108,9 @@ class EnhancedCompositedTransformAligned
     );
 
     final followerRect = followerRectBeforeClamp.shiftToWithinBound(
-        theaterRect, shiftToWithinBound);
+      theaterRect,
+      shiftToWithinBound,
+    );
 
     // print('hi getFollowerOffset '
     //     'followerSize=$followerSize targetSize=$targetSize theaterRect=$theaterRect '

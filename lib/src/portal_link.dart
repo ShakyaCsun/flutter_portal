@@ -1,7 +1,7 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import '../flutter_portal.dart';
-import 'portal_theater.dart';
+import 'package:flutter_portal/flutter_portal.dart';
+import 'package:flutter_portal/src/portal_theater.dart';
 
 class PortalLink {
   RenderPortalTheater? theater;
@@ -35,12 +35,12 @@ class PortalLinkOverlay {
 
 class PortalLinkScope extends InheritedWidget {
   const PortalLinkScope({
-    Key? key,
+    super.key,
     required this.debugName,
     required this.portalLink,
     required this.portalLabels,
-    required Widget child,
-  }) : super(key: key, child: child);
+    required super.child,
+  });
 
   final String? debugName;
   final PortalLink portalLink;

@@ -18,14 +18,16 @@ class EnhancedLayerLink {
 
   void _registerLeader(EnhancedLeaderLayer leader) {
     assert(_leader != leader);
-    assert(() {
-      if (_leader != null) {
-        _debugPreviousLeaders ??= <EnhancedLeaderLayer>{};
-        _debugScheduleLeadersCleanUpCheck();
-        return _debugPreviousLeaders!.add(_leader!);
-      }
-      return true;
-    }());
+    assert(
+      () {
+        if (_leader != null) {
+          _debugPreviousLeaders ??= <EnhancedLeaderLayer>{};
+          _debugScheduleLeadersCleanUpCheck();
+          return _debugPreviousLeaders!.add(_leader!);
+        }
+        return true;
+      }(),
+    );
     _leader = leader;
   }
 
@@ -44,16 +46,18 @@ class EnhancedLayerLink {
   /// @nodoc
   void _debugScheduleLeadersCleanUpCheck() {
     assert(_debugPreviousLeaders != null);
-    assert(() {
-      if (_debugLeaderCheckScheduled) return true;
-      _debugLeaderCheckScheduled = true;
-      // ignore: unnecessary_non_null_assertion
-      SchedulerBinding.instance.addPostFrameCallback((Duration timeStamp) {
-        _debugLeaderCheckScheduled = false;
-        assert(_debugPreviousLeaders!.isEmpty);
-      });
-      return true;
-    }());
+    assert(
+      () {
+        if (_debugLeaderCheckScheduled) return true;
+        _debugLeaderCheckScheduled = true;
+        // ignore: unnecessary_non_null_assertion
+        SchedulerBinding.instance.addPostFrameCallback((Duration timeStamp) {
+          _debugLeaderCheckScheduled = false;
+          assert(_debugPreviousLeaders!.isEmpty);
+        });
+        return true;
+      }(),
+    );
   }
 
   /// @nodoc
@@ -140,10 +144,15 @@ class EnhancedLeaderLayer extends ContainerLayer {
 
   @override
   bool findAnnotations<S extends Object>(
-      AnnotationResult<S> result, Offset localPosition,
-      {required bool onlyFirst}) {
-    return super.findAnnotations<S>(result, localPosition - offset,
-        onlyFirst: onlyFirst);
+    AnnotationResult<S> result,
+    Offset localPosition, {
+    required bool onlyFirst,
+  }) {
+    return super.findAnnotations<S>(
+      result,
+      localPosition - offset,
+      onlyFirst: onlyFirst,
+    );
   }
 
   @override
@@ -169,8 +178,12 @@ class EnhancedLeaderLayer extends ContainerLayer {
   void debugFillProperties(DiagnosticPropertiesBuilder properties) {
     super.debugFillProperties(properties);
     properties.add(DiagnosticsProperty<Offset>('offset', offset));
-    properties.add(DiagnosticsProperty(
-        'theaterRectRelativeToLeader', theaterRectRelativeToLeader));
+    properties.add(
+      DiagnosticsProperty(
+        'theaterRectRelativeToLeader',
+        theaterRectRelativeToLeader,
+      ),
+    );
     properties.add(DiagnosticsProperty<EnhancedLayerLink>('link', link));
     properties.add(DiagnosticsProperty('debugName', debugName));
   }
@@ -248,12 +261,17 @@ class EnhancedFollowerLayer extends ContainerLayer {
 
   @override
   bool findAnnotations<S extends Object>(
-      AnnotationResult<S> result, Offset localPosition,
-      {required bool onlyFirst}) {
+    AnnotationResult<S> result,
+    Offset localPosition, {
+    required bool onlyFirst,
+  }) {
     if (link.leader == null) {
       if (showWhenUnlinked!) {
-        return super.findAnnotations(result, localPosition - unlinkedOffset!,
-            onlyFirst: onlyFirst);
+        return super.findAnnotations(
+          result,
+          localPosition - unlinkedOffset!,
+          onlyFirst: onlyFirst,
+        );
       }
       return false;
     }
@@ -456,7 +474,8 @@ class EnhancedFollowerLayer extends ContainerLayer {
       transform.multiply(_lastTransform!);
     } else {
       transform.multiply(
-          Matrix4.translationValues(unlinkedOffset!.dx, unlinkedOffset!.dy, 0));
+        Matrix4.translationValues(unlinkedOffset!.dx, unlinkedOffset!.dy, 0),
+      );
     }
   }
 
@@ -465,12 +484,15 @@ class EnhancedFollowerLayer extends ContainerLayer {
     super.debugFillProperties(properties);
     properties.add(DiagnosticsProperty<EnhancedLayerLink>('link', link));
     properties.add(
-        TransformProperty('transform', getLastTransform(), defaultValue: null));
+      TransformProperty('transform', getLastTransform(), defaultValue: null),
+    );
     // NOTE MODIFIED
-    properties.add(DiagnosticsProperty<Offset Function()>(
-      'linkedOffsetCallback',
-      linkedOffsetCallback,
-    ));
+    properties.add(
+      DiagnosticsProperty<Offset Function()>(
+        'linkedOffsetCallback',
+        linkedOffsetCallback,
+      ),
+    );
     properties.add(DiagnosticsProperty('debugName', debugName));
   }
 }

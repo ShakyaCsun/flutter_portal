@@ -619,8 +619,10 @@ Future<void> main() async {
     expect(exception, isA<PortalNotFoundError>());
     expect(
       exception.toString(),
-      equals('Error: Could not find a Portal above this '
-          'PortalTarget(debugName: null, portalCandidateLabels=[PortalLabel.main]).\n'),
+      equals(
+        'Error: Could not find a Portal above this '
+        'PortalTarget(debugName: null, portalCandidateLabels=[PortalLabel.main]).\n',
+      ),
     );
   });
 
@@ -664,15 +666,19 @@ Future<void> main() async {
       ),
     );
 
-    await expectLater(find.byType(Boilerplate),
-        matchesGoldenFile('hiding_multiple_entries/0.png'));
+    await expectLater(
+      find.byType(Boilerplate),
+      matchesGoldenFile('hiding_multiple_entries/0.png'),
+    );
 
     notifier.value = false;
 
     await tester.pump();
 
-    await expectLater(find.byType(Boilerplate),
-        matchesGoldenFile('hiding_multiple_entries/1.png'));
+    await expectLater(
+      find.byType(Boilerplate),
+      matchesGoldenFile('hiding_multiple_entries/1.png'),
+    );
   });
 
   testWidgets('visible defaults to true', (tester) async {
@@ -808,15 +814,21 @@ Future<void> main() async {
       ),
     );
 
-    await expectLater(find.byKey(containerKey),
-        matchesGoldenFile('local_to_global_when_shifted.png'));
+    await expectLater(
+      find.byKey(containerKey),
+      matchesGoldenFile('local_to_global_when_shifted.png'),
+    );
 
     final portalFollowerRenderBox =
         portalFollowerKey.currentContext!.findRenderObject()! as RenderBox;
-    expect(portalFollowerRenderBox.localToGlobal(Offset.zero),
-        const Offset(10, 70));
-    expect(portalFollowerRenderBox.globalToLocal(Offset.zero),
-        const Offset(-10, -70));
+    expect(
+      portalFollowerRenderBox.localToGlobal(Offset.zero),
+      const Offset(10, 70),
+    );
+    expect(
+      portalFollowerRenderBox.globalToLocal(Offset.zero),
+      const Offset(-10, -70),
+    );
   });
 
   // #64
@@ -860,7 +872,9 @@ Future<void> main() async {
     await tester.tapAt(const Offset(25, 85));
 
     await expectLater(
-        find.byKey(containerKey), matchesGoldenFile('click_when_shifted.png'));
+      find.byKey(containerKey),
+      matchesGoldenFile('click_when_shifted.png'),
+    );
 
     final event = pointerDownEvents.single;
     expect(event.localPosition, const Offset(15, 15));
@@ -918,7 +932,9 @@ Future<void> main() async {
             alignment: Alignment.topLeft,
             child: PortalTarget(
               anchor: Aligned(
-                  follower: Alignment.topLeft, target: Alignment.bottomLeft),
+                follower: Alignment.topLeft,
+                target: Alignment.bottomLeft,
+              ),
               portalFollower: SizedBox(key: portalKey, height: 42, width: 24),
               child: SizedBox(key: childKey, height: 10, width: 10),
             ),
@@ -1364,22 +1380,26 @@ Future<void> main() async {
 
     expect(find.text('1'), findsOneWidget);
     expect(find.text('1 1'), findsOneWidget);
-    expect(entryBuild.calls,
-        const [EntryBuildSpyCall(0, 1), EntryBuildSpyCall(1, 1)]);
+    expect(
+      entryBuild.calls,
+      const [EntryBuildSpyCall(0, 1), EntryBuildSpyCall(1, 1)],
+    );
   });
 
   testWidgets('layout builder between portal and entry on first build',
       (tester) async {
-    await tester.pumpWidget(Portal(
-      child: LayoutBuilder(
-        builder: (_, __) {
-          return const PortalTarget(
-            portalFollower: Text('portal', textDirection: TextDirection.ltr),
-            child: Text('child', textDirection: TextDirection.ltr),
-          );
-        },
+    await tester.pumpWidget(
+      Portal(
+        child: LayoutBuilder(
+          builder: (_, __) {
+            return const PortalTarget(
+              portalFollower: Text('portal', textDirection: TextDirection.ltr),
+              child: Text('child', textDirection: TextDirection.ltr),
+            );
+          },
+        ),
       ),
-    ));
+    );
 
     expect(find.text('child'), findsOneWidget);
     expect(find.text('portal'), findsOneWidget);
@@ -1420,92 +1440,96 @@ Future<void> main() async {
     expect(find.text('portal'), findsOneWidget);
   });
 
-  testWidgets('handles reparenting with GlobalKey', (tester) async {
-    // final firstPortal = UniqueKey();
-    // final secondPortal = UniqueKey();
-    //
-    // final entryKey = GlobalKey();
-    //
-    // await tester.pumpWidget(
-    //   Row(
-    //     textDirection: TextDirection.ltr,
-    //     children: <Widget>[
-    //       Portal(
-    //         key: firstPortal,
-    //         child: PortalTarget(
-    //           key: entryKey,
-    //           portalFollower: Container(),
-    //           child: Container(),
-    //         ),
-    //       ),
-    //       Portal(key: secondPortal, child: Container()),
-    //     ],
-    //   ),
-    // );
-    //
-    // final firstPortalElement =
-    //     tester.element(find.byKey(firstPortal)) as PortalElement;
-    // final secondPortalElement =
-    //     tester.element(find.byKey(secondPortal)) as PortalElement;
-    //
-    // expect(firstPortalElement.theater.entries.length, 1);
-    // expect(firstPortalElement.theater.renderObject.builders.length, 1);
-    // expect(firstPortalElement.theater.renderObject.childCount, 1);
-    // expect(secondPortalElement.theater.entries.length, 0);
-    // expect(secondPortalElement.theater.renderObject.builders.length, 0);
-    // expect(secondPortalElement.theater.renderObject.childCount, 0);
-    //
-    // await tester.pumpWidget(
-    //   Row(
-    //     textDirection: TextDirection.ltr,
-    //     children: <Widget>[
-    //       Portal(
-    //         key: firstPortal,
-    //         child: Container(),
-    //       ),
-    //       Portal(
-    //         key: secondPortal,
-    //         child: PortalTarget(
-    //           key: entryKey,
-    //           portalFollower: Container(),
-    //           child: Container(),
-    //         ),
-    //       ),
-    //     ],
-    //   ),
-    // );
-    //
-    // expect(firstPortalElement.theater.entries.length, 0);
-    // expect(firstPortalElement.theater.renderObject.builders.length, 0);
-    // expect(firstPortalElement.theater.renderObject.childCount, 0);
-    // expect(secondPortalElement.theater.entries.length, 1);
-    // expect(secondPortalElement.theater.renderObject.builders.length, 1);
-    // expect(secondPortalElement.theater.renderObject.childCount, 1);
-    //
-    // await tester.pumpWidget(
-    //   Row(
-    //     textDirection: TextDirection.ltr,
-    //     children: <Widget>[
-    //       Portal(
-    //         key: firstPortal,
-    //         child: PortalTarget(
-    //           key: entryKey,
-    //           portalFollower: Container(),
-    //           child: Container(),
-    //         ),
-    //       ),
-    //       Portal(key: secondPortal, child: Container()),
-    //     ],
-    //   ),
-    // );
-    //
-    // expect(firstPortalElement.theater.entries.length, 1);
-    // expect(firstPortalElement.theater.renderObject.builders.length, 1);
-    // expect(firstPortalElement.theater.renderObject.childCount, 1);
-    // expect(secondPortalElement.theater.entries.length, 0);
-    // expect(secondPortalElement.theater.renderObject.builders.length, 0);
-    // expect(secondPortalElement.theater.renderObject.childCount, 0);
-  }, skip: true);
+  testWidgets(
+    'handles reparenting with GlobalKey',
+    (tester) async {
+      // final firstPortal = UniqueKey();
+      // final secondPortal = UniqueKey();
+      //
+      // final entryKey = GlobalKey();
+      //
+      // await tester.pumpWidget(
+      //   Row(
+      //     textDirection: TextDirection.ltr,
+      //     children: <Widget>[
+      //       Portal(
+      //         key: firstPortal,
+      //         child: PortalTarget(
+      //           key: entryKey,
+      //           portalFollower: Container(),
+      //           child: Container(),
+      //         ),
+      //       ),
+      //       Portal(key: secondPortal, child: Container()),
+      //     ],
+      //   ),
+      // );
+      //
+      // final firstPortalElement =
+      //     tester.element(find.byKey(firstPortal)) as PortalElement;
+      // final secondPortalElement =
+      //     tester.element(find.byKey(secondPortal)) as PortalElement;
+      //
+      // expect(firstPortalElement.theater.entries.length, 1);
+      // expect(firstPortalElement.theater.renderObject.builders.length, 1);
+      // expect(firstPortalElement.theater.renderObject.childCount, 1);
+      // expect(secondPortalElement.theater.entries.length, 0);
+      // expect(secondPortalElement.theater.renderObject.builders.length, 0);
+      // expect(secondPortalElement.theater.renderObject.childCount, 0);
+      //
+      // await tester.pumpWidget(
+      //   Row(
+      //     textDirection: TextDirection.ltr,
+      //     children: <Widget>[
+      //       Portal(
+      //         key: firstPortal,
+      //         child: Container(),
+      //       ),
+      //       Portal(
+      //         key: secondPortal,
+      //         child: PortalTarget(
+      //           key: entryKey,
+      //           portalFollower: Container(),
+      //           child: Container(),
+      //         ),
+      //       ),
+      //     ],
+      //   ),
+      // );
+      //
+      // expect(firstPortalElement.theater.entries.length, 0);
+      // expect(firstPortalElement.theater.renderObject.builders.length, 0);
+      // expect(firstPortalElement.theater.renderObject.childCount, 0);
+      // expect(secondPortalElement.theater.entries.length, 1);
+      // expect(secondPortalElement.theater.renderObject.builders.length, 1);
+      // expect(secondPortalElement.theater.renderObject.childCount, 1);
+      //
+      // await tester.pumpWidget(
+      //   Row(
+      //     textDirection: TextDirection.ltr,
+      //     children: <Widget>[
+      //       Portal(
+      //         key: firstPortal,
+      //         child: PortalTarget(
+      //           key: entryKey,
+      //           portalFollower: Container(),
+      //           child: Container(),
+      //         ),
+      //       ),
+      //       Portal(key: secondPortal, child: Container()),
+      //     ],
+      //   ),
+      // );
+      //
+      // expect(firstPortalElement.theater.entries.length, 1);
+      // expect(firstPortalElement.theater.renderObject.builders.length, 1);
+      // expect(firstPortalElement.theater.renderObject.childCount, 1);
+      // expect(secondPortalElement.theater.entries.length, 0);
+      // expect(secondPortalElement.theater.renderObject.builders.length, 0);
+      // expect(secondPortalElement.theater.renderObject.childCount, 0);
+    },
+    skip: true,
+  );
 
   testWidgets('clip overflow', (tester) async {}, skip: true);
 
@@ -1544,10 +1568,14 @@ Future<void> main() async {
 
     expect(tester.getTopLeft(find.byWidget(topLeft)), Offset.zero);
     expect(tester.getTopRight(find.byWidget(topRight)), const Offset(800, 0));
-    expect(tester.getBottomRight(find.byWidget(bottomRight)),
-        const Offset(800, 600));
     expect(
-        tester.getBottomLeft(find.byWidget(bottomLeft)), const Offset(0, 600));
+      tester.getBottomRight(find.byWidget(bottomRight)),
+      const Offset(800, 600),
+    );
+    expect(
+      tester.getBottomLeft(find.byWidget(bottomLeft)),
+      const Offset(0, 600),
+    );
   });
 
   testWidgets(
@@ -1641,7 +1669,9 @@ Future<void> main() async {
     );
 
     await expectLater(
-        find.byType(Portal), matchesGoldenFile('partially_follow.png'));
+      find.byType(Portal),
+      matchesGoldenFile('partially_follow.png'),
+    );
   });
 
   // #67
@@ -1693,7 +1723,9 @@ Future<void> main() async {
     );
 
     await expectLater(
-        find.byType(Portal), matchesGoldenFile('shift_to_within_bound.png'));
+      find.byType(Portal),
+      matchesGoldenFile('shift_to_within_bound.png'),
+    );
   });
 
   testWidgets('portals paints in order of addition (last paints last)',
@@ -1723,7 +1755,9 @@ Future<void> main() async {
     );
 
     await expectLater(
-        find.byType(Portal), matchesGoldenFile('paint_order.jpg'));
+      find.byType(Portal),
+      matchesGoldenFile('paint_order.jpg'),
+    );
   });
 
   testWidgets('PortalTarget can choose non-nearest ancestor Portal',
@@ -1803,8 +1837,10 @@ Future<void> main() async {
       ),
     );
 
-    await expectLater(find.byKey(containerKey),
-        matchesGoldenFile('non_nearest_ancestor.png'));
+    await expectLater(
+      find.byKey(containerKey),
+      matchesGoldenFile('non_nearest_ancestor.png'),
+    );
   });
 
   testWidgets('PortalTarget understands main scope', (tester) async {
@@ -1901,7 +1937,9 @@ Future<void> main() async {
     );
 
     await expectLater(
-        find.byKey(containerKey), matchesGoldenFile('main_scope.png'));
+      find.byKey(containerKey),
+      matchesGoldenFile('main_scope.png'),
+    );
   });
 
   // https://github.com/fzyzcjy/flutter_portal/issues/57
@@ -1933,24 +1971,31 @@ Future<void> main() async {
                 child: PortalTarget(
                   portalCandidateLabels: const [first],
                   anchor: const Aligned(
-                      follower: Alignment.topLeft, target: Alignment.topLeft),
+                    follower: Alignment.topLeft,
+                    target: Alignment.topLeft,
+                  ),
                   debugName: 'OuterTargetToFirstPortal',
                   portalFollower: Container(
                     color: Colors.teal,
                     padding: const EdgeInsets.symmetric(
-                        horizontal: 10, vertical: 10),
+                      horizontal: 10,
+                      vertical: 10,
+                    ),
                     width: 200,
                     height: 200,
                     child: PortalTarget(
                       portalCandidateLabels: const [second],
                       debugName: 'InnerTargetToSecondPortal',
                       anchor: const Aligned(
-                          follower: Alignment.topLeft,
-                          target: Alignment.topLeft),
+                        follower: Alignment.topLeft,
+                        target: Alignment.topLeft,
+                      ),
                       portalFollower: Container(
                         color: Colors.orange,
                         padding: const EdgeInsets.symmetric(
-                            horizontal: 10, vertical: 10),
+                          horizontal: 10,
+                          vertical: 10,
+                        ),
                         width: 10,
                         height: 10,
                       ),
@@ -2010,28 +2055,39 @@ Future<void> main() async {
                 child: PortalTarget(
                   portalCandidateLabels: const [second],
                   anchor: const Aligned(
-                      follower: Alignment.topLeft, target: Alignment.topLeft),
+                    follower: Alignment.topLeft,
+                    target: Alignment.topLeft,
+                  ),
                   debugName: 'OuterTargetToSecondPortal',
                   portalFollower: Container(
                     color: Colors.teal,
                     margin: const EdgeInsets.symmetric(
-                        horizontal: 10, vertical: 10),
+                      horizontal: 10,
+                      vertical: 10,
+                    ),
                     padding: const EdgeInsets.symmetric(
-                        horizontal: 10, vertical: 10),
+                      horizontal: 10,
+                      vertical: 10,
+                    ),
                     width: 200,
                     height: 200,
                     child: PortalTarget(
                       portalCandidateLabels: const [first],
                       debugName: 'InnerTargetToFirstPortal',
                       anchor: const Aligned(
-                          follower: Alignment.topLeft,
-                          target: Alignment.topLeft),
+                        follower: Alignment.topLeft,
+                        target: Alignment.topLeft,
+                      ),
                       portalFollower: Container(
                         color: Colors.orange,
                         margin: const EdgeInsets.symmetric(
-                            horizontal: 10, vertical: 10),
+                          horizontal: 10,
+                          vertical: 10,
+                        ),
                         padding: const EdgeInsets.symmetric(
-                            horizontal: 10, vertical: 10),
+                          horizontal: 10,
+                          vertical: 10,
+                        ),
                         width: 10,
                         height: 10,
                       ),
@@ -2051,8 +2107,10 @@ Future<void> main() async {
       ),
     );
 
-    await expectLater(find.byKey(boilerplateKey),
-        matchesGoldenFile('multi_portal_nested_follower_1.png'));
+    await expectLater(
+      find.byKey(boilerplateKey),
+      matchesGoldenFile('multi_portal_nested_follower_1.png'),
+    );
   });
 
   testWidgets(
@@ -2077,7 +2135,9 @@ Future<void> main() async {
             child: PortalTarget(
               portalCandidateLabels: const [first],
               anchor: const Aligned(
-                  follower: Alignment.topLeft, target: Alignment.topLeft),
+                follower: Alignment.topLeft,
+                target: Alignment.topLeft,
+              ),
               debugName: 'OuterTargetToFirstPortal',
               portalFollower: Container(
                 color: Colors.blue,
@@ -2090,23 +2150,32 @@ Future<void> main() async {
                   child: Container(
                     color: Colors.teal,
                     margin: const EdgeInsets.symmetric(
-                        horizontal: 10, vertical: 10),
+                      horizontal: 10,
+                      vertical: 10,
+                    ),
                     padding: const EdgeInsets.symmetric(
-                        horizontal: 10, vertical: 10),
+                      horizontal: 10,
+                      vertical: 10,
+                    ),
                     width: 150,
                     height: 150,
                     child: PortalTarget(
                       portalCandidateLabels: const [second],
                       debugName: 'InnerTargetToSecondPortal',
                       anchor: const Aligned(
-                          follower: Alignment.topLeft,
-                          target: Alignment.topLeft),
+                        follower: Alignment.topLeft,
+                        target: Alignment.topLeft,
+                      ),
                       portalFollower: Container(
                         color: Colors.orange,
                         margin: const EdgeInsets.symmetric(
-                            horizontal: 10, vertical: 10),
+                          horizontal: 10,
+                          vertical: 10,
+                        ),
                         padding: const EdgeInsets.symmetric(
-                            horizontal: 10, vertical: 10),
+                          horizontal: 10,
+                          vertical: 10,
+                        ),
                         width: 10,
                         height: 10,
                       ),
@@ -2126,13 +2195,15 @@ Future<void> main() async {
       ),
     );
 
-    await expectLater(find.byKey(boilerplateKey),
-        matchesGoldenFile('multi_portal_nested_follower_2.png'));
+    await expectLater(
+      find.byKey(boilerplateKey),
+      matchesGoldenFile('multi_portal_nested_follower_2.png'),
+    );
   });
 }
 
 class Boilerplate extends StatelessWidget {
-  const Boilerplate({Key? key, this.child}) : super(key: key);
+  const Boilerplate({super.key, this.child});
 
   final Widget? child;
 

@@ -4,7 +4,7 @@ description: Evolved Overlay/OverlayEntry - declarative not imperative, intuitiv
 homepage: https://github.com/fzyzcjy/flutter_portal
 
 environment:
-  sdk: '>=2.16.0 <3.0.0'
+  sdk: '>=2.17.0 <3.0.0'
   flutter: '>=1.21.0'
 
 dependencies:
@@ -17,3 +17,4 @@ dev_dependencies:
   flutter_test:
     sdk: flutter
   path: ^1.0.0
+  very_good_analysis: ^3.0.0

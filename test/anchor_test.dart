@@ -27,32 +27,34 @@ void main() {
       },
     );
 
-    await tester.pumpWidget(MaterialApp(
-      home: Scaffold(
-        body: Center(
-          child: SizedBox(
-            width: 100,
-            height: 100,
-            child: ColoredBox(
-              color: Colors.green,
-              child: Portal(
-                child: Center(
-                  child: ColoredBox(
-                    color: Colors.white,
-                    child: SizedBox(
-                      width: 50,
-                      height: 50,
-                      child: PortalTarget(
-                        anchor: anchor,
-                        portalFollower: const ColoredBox(
-                          color: Colors.red,
-                        ),
-                        child: const Center(
-                          child: ColoredBox(
-                            color: Colors.black,
-                            child: SizedBox(
-                              width: 20,
-                              height: 20,
+    await tester.pumpWidget(
+      MaterialApp(
+        home: Scaffold(
+          body: Center(
+            child: SizedBox(
+              width: 100,
+              height: 100,
+              child: ColoredBox(
+                color: Colors.green,
+                child: Portal(
+                  child: Center(
+                    child: ColoredBox(
+                      color: Colors.white,
+                      child: SizedBox(
+                        width: 50,
+                        height: 50,
+                        child: PortalTarget(
+                          anchor: anchor,
+                          portalFollower: const ColoredBox(
+                            color: Colors.red,
+                          ),
+                          child: const Center(
+                            child: ColoredBox(
+                              color: Colors.black,
+                              child: SizedBox(
+                                width: 20,
+                                height: 20,
+                              ),
                             ),
                           ),
                         ),
@@ -65,7 +67,7 @@ void main() {
           ),
         ),
       ),
-    ));
+    );
 
     expect(constraintsTargetSize, const Size(50, 50));
     expect(
@@ -82,10 +84,11 @@ void main() {
     final backupAligned = _TestAligned(
       follower: Alignment.bottomLeft,
       target: Alignment.topLeft,
-      onGetSourceOffset: (
-              {required followerSize,
-              required targetSize,
-              required portalRect}) =>
+      onGetSourceOffset: ({
+        required followerSize,
+        required targetSize,
+        required portalRect,
+      }) =>
           offsetAccessed = true,
     );
     final entry = PortalTarget(
@@ -104,39 +107,43 @@ void main() {
       ),
     );
 
-    await tester.pumpWidget(MaterialApp(
-      home: Scaffold(
-        body: Center(
-          child: SizedBox(
-            width: 50,
-            height: 50,
-            child: Portal(
-              child: Center(
-                child: entry,
+    await tester.pumpWidget(
+      MaterialApp(
+        home: Scaffold(
+          body: Center(
+            child: SizedBox(
+              width: 50,
+              height: 50,
+              child: Portal(
+                child: Center(
+                  child: entry,
+                ),
               ),
             ),
           ),
         ),
       ),
-    ));
+    );
 
     expect(offsetAccessed, false);
 
-    await tester.pumpWidget(MaterialApp(
-      home: Scaffold(
-        body: Center(
-          child: SizedBox(
-            width: 50,
-            height: 49,
-            child: Portal(
-              child: Center(
-                child: entry,
+    await tester.pumpWidget(
+      MaterialApp(
+        home: Scaffold(
+          body: Center(
+            child: SizedBox(
+              width: 50,
+              height: 49,
+              child: Portal(
+                child: Center(
+                  child: entry,
+                ),
               ),
             ),
           ),
         ),
       ),
-    ));
+    );
 
     expect(offsetAccessed, true);
   });
@@ -150,8 +157,11 @@ void main() {
     final anchor = _TestAligned(
       follower: Alignment.topLeft,
       target: Alignment.bottomLeft,
-      onGetSourceOffset: (
-          {required followerSize, required targetSize, required portalRect}) {
+      onGetSourceOffset: ({
+        required followerSize,
+        required targetSize,
+        required portalRect,
+      }) {
         // print('hi $followerSize $targetSize $portalRect');
         expect(followerSize, const Size(20, 20));
         expect(targetSize, const Size(10, 10));
@@ -176,23 +186,25 @@ void main() {
     );
 
     final mainKey = GlobalKey();
-    await tester.pumpWidget(Container(
-      color: Colors.blue.shade50,
-      child: Directionality(
-        textDirection: TextDirection.ltr,
-        child: Center(
-          key: mainKey,
-          child: Container(
-            color: Colors.blue.shade200,
-            child: RepaintBoundary(
-              child: Container(
-                margin: const EdgeInsets.symmetric(vertical: 15),
-                width: 50,
-                height: 50,
-                color: Colors.blue,
-                child: Portal(
-                  child: Center(
-                    child: entry,
+    await tester.pumpWidget(
+      Container(
+        color: Colors.blue.shade50,
+        child: Directionality(
+          textDirection: TextDirection.ltr,
+          child: Center(
+            key: mainKey,
+            child: Container(
+              color: Colors.blue.shade200,
+              child: RepaintBoundary(
+                child: Container(
+                  margin: const EdgeInsets.symmetric(vertical: 15),
+                  width: 50,
+                  height: 50,
+                  color: Colors.blue,
+                  child: Portal(
+                    child: Center(
+                      child: entry,
+                    ),
                   ),
                 ),
               ),
@@ -200,7 +212,7 @@ void main() {
           ),
         ),
       ),
-    ));
+    );
 
     // some verifications are done inside that callback
     expect(calledGetSourceOffset, true);
@@ -250,18 +262,13 @@ class _TestAnchor extends Anchor {
 
 class _TestAligned extends Aligned {
   const _TestAligned({
-    required Alignment follower,
-    required Alignment target,
-    Offset offset = Offset.zero,
-    double? widthFactor,
-    double? heightFactor,
+    required super.follower,
+    required super.target,
+    super.offset,
+    super.widthFactor,
+    super.heightFactor,
     required this.onGetSourceOffset,
-  }) : super(
-            follower: follower,
-            target: target,
-            offset: offset,
-            widthFactor: widthFactor,
-            heightFactor: heightFactor);
+  });
 
   final void Function({
     required Size followerSize,

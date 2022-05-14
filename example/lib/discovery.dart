@@ -6,7 +6,7 @@ void main() {
 }
 
 class MyApp extends StatefulWidget {
-  const MyApp({Key? key}) : super(key: key);
+  const MyApp({super.key});
 
   @override
   _MyAppState createState() => _MyAppState();
@@ -59,12 +59,12 @@ class _MyAppState extends State<MyApp> {
 
 class Discovery extends StatelessWidget {
   const Discovery({
-    Key? key,
+    super.key,
     required this.visible,
     required this.onClose,
     required this.description,
     required this.child,
-  }) : super(key: key);
+  });
 
   final Widget child;
   final Widget description;
@@ -159,11 +159,11 @@ class HolePainter extends CustomPainter {
 
 class Barrier extends StatelessWidget {
   const Barrier({
-    Key? key,
+    super.key,
     required this.onClose,
     required this.visible,
     required this.child,
-  }) : super(key: key);
+  });
 
   final Widget child;
   final VoidCallback onClose;

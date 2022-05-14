@@ -5,12 +5,12 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 
-import 'anchor.dart';
-import 'enhanced_composited_transform/flutter_src/rendering_layer.dart';
-import 'enhanced_composited_transform/flutter_src/widgets_basic.dart';
-import 'portal.dart';
-import 'portal_link.dart';
-import 'portal_target_theater.dart';
+import 'package:flutter_portal/src/anchor.dart';
+import 'package:flutter_portal/src/enhanced_composited_transform/flutter_src/rendering_layer.dart';
+import 'package:flutter_portal/src/enhanced_composited_transform/flutter_src/widgets_basic.dart';
+import 'package:flutter_portal/src/portal.dart';
+import 'package:flutter_portal/src/portal_link.dart';
+import 'package:flutter_portal/src/portal_target_theater.dart';
 
 /// A widget that renders its follower in a different location of the widget
 /// tree.
@@ -199,7 +199,7 @@ import 'portal_target_theater.dart';
 /// ```
 class PortalTarget extends StatefulWidget {
   const PortalTarget({
-    Key? key,
+    super.key,
     this.visible = true,
     this.anchor = const Filled(),
     this.closeDuration,
@@ -207,8 +207,7 @@ class PortalTarget extends StatefulWidget {
     this.portalCandidateLabels = const [PortalLabel.main],
     this.debugName,
     required this.child,
-  })  : assert(visible == false || portalFollower != null),
-        super(key: key);
+  }) : assert(visible == false || portalFollower != null);
 
   // ignore: diagnostic_describe_all_properties, conflicts with closeDuration
   final bool visible;
@@ -229,8 +228,12 @@ class PortalTarget extends StatefulWidget {
       ..add(DiagnosticsProperty<Anchor>('anchor', anchor))
       ..add(DiagnosticsProperty<Duration>('closeDuration', closeDuration))
       ..add(DiagnosticsProperty<Widget>('portalFollower', portalFollower))
-      ..add(DiagnosticsProperty<List<PortalLabel>>(
-          'portalCandidateLabels', portalCandidateLabels))
+      ..add(
+        DiagnosticsProperty<List<PortalLabel>>(
+          'portalCandidateLabels',
+          portalCandidateLabels,
+        ),
+      )
       ..add(DiagnosticsProperty('debugName', debugName))
       ..add(DiagnosticsProperty<Widget>('child', child));
   }
@@ -255,7 +258,8 @@ class PortalTarget extends StatefulWidget {
     for (final portalLabel in portalCandidateLabels) {
       final scope =
           context.dependOnSpecificInheritedWidgetOfExactType<PortalLinkScope>(
-              (scope) => scope.portalLabels.contains(portalLabel));
+        (scope) => scope.portalLabels.contains(portalLabel),
+      );
       if (scope != null) {
         return scope;
       }
@@ -289,7 +293,10 @@ class _PortalTargetState extends State<PortalTarget> {
   }
 
   Widget _buildModeNormal(
-      BuildContext context, bool currentVisible, PortalLinkScope scope) {
+    BuildContext context,
+    bool currentVisible,
+    PortalLinkScope scope,
+  ) {
     _sanityCheckNestedPortalTarget(context, scope);
 
     return Stack(
@@ -345,11 +352,15 @@ class _PortalTargetState extends State<PortalTarget> {
   }
 
   void _sanityCheckNestedPortalTarget(
-      BuildContext context, PortalLinkScope scope) {
+    BuildContext context,
+    PortalLinkScope scope,
+  ) {
     final portalLinkScopeAncestors = context
         .getElementsForInheritedWidgetsOfExactType<PortalLinkScope>()
-        .map((element) =>
-            context.dependOnInheritedElement(element) as PortalLinkScope)
+        .map(
+          (element) =>
+              context.dependOnInheritedElement(element) as PortalLinkScope,
+        )
         .toList();
 
     for (final followerParentElement
@@ -399,11 +410,11 @@ class _PortalTargetState extends State<PortalTarget> {
 
 class _PortalTargetVisibilityBuilder extends StatefulWidget {
   const _PortalTargetVisibilityBuilder({
-    Key? key,
+    super.key,
     required this.visible,
     required this.closeDuration,
     required this.builder,
-  }) : super(key: key);
+  });
 
   final bool visible;
   final Duration? closeDuration;
@@ -463,11 +474,11 @@ class _PortalTargetVisibilityBuilderState
 
 class _PortalTargetTheaterFollowerParent extends InheritedWidget {
   const _PortalTargetTheaterFollowerParent({
-    Key? key,
+    super.key,
     required this.debugSelfWidget,
     required this.usedScope,
-    required Widget child,
-  }) : super(key: key, child: child);
+    required super.child,
+  });
 
   final PortalTarget debugSelfWidget;
   final PortalLinkScope usedScope;
@@ -569,7 +580,8 @@ extension on BuildContext {
 
   /// https://stackoverflow.com/questions/71200969
   T? dependOnSpecificInheritedWidgetOfExactType<T extends InheritedWidget>(
-      bool Function(T) test) {
+    bool Function(T) test,
+  ) {
     final element = getSpecificElementForInheritedWidgetsOfExactType<T>(test);
     if (element == null) {
       return null;

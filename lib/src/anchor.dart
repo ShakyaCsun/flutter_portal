@@ -1,7 +1,7 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/rendering.dart';
 
-import 'enhanced_composited_transform/anchor.dart';
+import 'package:flutter_portal/src/enhanced_composited_transform/anchor.dart';
 
 export 'enhanced_composited_transform/anchor.dart' show AxisFlag;
 
@@ -61,26 +61,17 @@ class Filled implements Anchor {
 class Aligned extends EnhancedCompositedTransformAligned
     implements Anchor, EnhancedCompositedTransformAnchor {
   const Aligned({
-    required Alignment follower,
-    required Alignment target,
-    Alignment portal = Alignment.center,
-    AxisFlag alignToPortal = const AxisFlag(),
-    AxisFlag shiftToWithinBound = const AxisFlag(),
-    Offset offset = Offset.zero,
-    EnhancedCompositedTransformAnchor? backup,
-    String? debugName,
+    required super.follower,
+    required super.target,
+    super.portal,
+    super.alignToPortal,
+    super.shiftToWithinBound,
+    super.offset,
+    super.backup,
+    super.debugName,
     this.widthFactor,
     this.heightFactor,
-  }) : super(
-          follower: follower,
-          target: target,
-          portal: portal,
-          alignToPortal: alignToPortal,
-          shiftToWithinBound: shiftToWithinBound,
-          offset: offset,
-          backup: backup,
-          debugName: debugName,
-        );
+  });
 
   static const center = Aligned(
     follower: Alignment.center,

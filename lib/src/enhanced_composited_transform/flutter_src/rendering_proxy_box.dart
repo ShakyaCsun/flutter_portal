@@ -5,8 +5,8 @@
 
 import 'package:flutter/rendering.dart';
 
-import '../anchor.dart';
-import 'rendering_layer.dart';
+import 'package:flutter_portal/src/enhanced_composited_transform/anchor.dart';
+import 'package:flutter_portal/src/enhanced_composited_transform/flutter_src/rendering_layer.dart';
 
 typedef TheaterGetter = RenderBox? Function();
 
@@ -294,7 +294,8 @@ class EnhancedRenderFollowerLayer extends RenderProxyBox {
     properties.add(DiagnosticsProperty<EnhancedLayerLink>('link', link));
     properties.add(DiagnosticsProperty('showWhenUnlinked', showWhenUnlinked));
     properties.add(
-        TransformProperty('current transform matrix', getCurrentTransform()));
+      TransformProperty('current transform matrix', getCurrentTransform()),
+    );
     properties.add(DiagnosticsProperty('anchor', anchor));
     properties.add(DiagnosticsProperty('targetSize', targetSize));
     properties.add(DiagnosticsProperty('debugName', debugName));
